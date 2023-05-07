@@ -1,0 +1,22 @@
+section {
+    background-color: #00072e;
+}
+
+.container {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.card {
+    background-color: rgb(253, 245, 245);
+}
+
+h1 {
+    color: #636363;
+    font-size: 3rem;
+}
+
+h2 {
+    color: #fff;
+}
