@@ -1,44 +1,63 @@
 <?php
-var_dump($_GET);
 $password = array();
-
 $lenghtPassword = $_GET['password'];
-var_dump($lenghtPassword);
-
 $alphabetsLower = range('a', 'z');
 $alphabetsUpper = range('A', 'Z');
-var_dump($alphabetsLower);
-var_dump($alphabetsUpper);
+$number = array('0', '1', '2', '3', '4', '5', '6', '7', '8', '9'); 
+$simboli = array('/', '!', '£', '$', '%', '&', '_', '-', '@', '#'); 
 
 for ($i=0; $i < $lenghtPassword; $i++) { 
 
-    $randomChoice = rand(0, 1);
+    $randomChoice = rand(0, 3);
     if ($_GET['yes-no'] === 'true') {
-        if ($randomChoice === 0) {
+        if ($randomChoice === 0 && !empty($_GET['lettere'])) {
             $randomLower = rand(0, count($alphabetsLower) - 1);
             array_push($password, $alphabetsLower[$randomLower]);
-        }elseif ($randomChoice === 1) {
+        }elseif ($randomChoice === 1 && !empty($_GET['lettere'])) {
             $randomUpper = rand(0, count($alphabetsUpper) - 1);
             array_push($password, $alphabetsUpper[$randomUpper]);
+        }elseif ($randomChoice === 2 && !empty($_GET['numeri'])) {
+            $random = rand(0, count($number) - 1);
+            array_push($password, $number[$random]);
+        }elseif ($randomChoice === 3 && !empty($_GET['simboli'])) {
+            $random = rand(0, count($simboli) - 1);
+            array_push($password, $simboli[$random]);
+        }else {
+            $i--;
         }
     }else {
-        if ($randomChoice === 0) {
+        if ($randomChoice === 0 && !empty($_GET['lettere'])) {
             $randomLower = rand(0, count($alphabetsLower) - 1);
             if (!in_array($alphabetsLower[$randomLower], $password)) {
                 array_push($password, $alphabetsLower[$randomLower]);
             }else {
                 $i--;
             }
-        }elseif ($randomChoice === 1) {
+        }elseif ($randomChoice === 1 && !empty($_GET['lettere'])) {
             $randomUpper = rand(0, count($alphabetsUpper) - 1);
             if (!in_array($alphabetsUpper[$randomUpper], $password)) {
                 array_push($password, $alphabetsUpper[$randomUpper]);
             }else {
                 $i--;
             }
+        }elseif ($randomChoice === 2 && !empty($_GET['numeri'])) {
+            $random = rand(0, count($number) - 1);
+            if (!in_array($number[$random], $password)) {
+                array_push($password, $number[$random]);
+            }else {
+                $i--;
+            }
+        }elseif ($randomChoice === 3 && !empty($_GET['simboli'])) {
+            $random = rand(0, count($simboli) - 1);
+            if (!in_array($simboli[$random], $password)) {
+                array_push($password, $simboli[$random]);
+            }else {
+                $i--;
+            }
+        }else {
+            $i--;
         }
     }
-
 }
 ?>
 
