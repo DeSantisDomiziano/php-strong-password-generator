@@ -1,3 +1,31 @@
+<?php
+var_dump($_GET);
+$password = array();
+
+$lenghtPassword = $_GET['password'];
+var_dump($lenghtPassword);
+
+$alphabetsLower = range('a', 'z');
+$alphabetsUpper = range('A', 'Z');
+var_dump($alphabetsLower);
+var_dump($alphabetsUpper);
+
+for ($i=0; $i < $lenghtPassword; $i++) { 
+    $randomChoice = rand(0, 1);
+    if ($randomChoice === 0) {
+        $randomLower = rand(0, count($alphabetsLower) - 1);
+        array_push($password, $alphabetsLower[$randomLower]);
+    }elseif ($randomChoice === 1) {
+        $randomUpper = rand(0, count($alphabetsUpper) - 1);
+        array_push($password, $alphabetsUpper[$randomUpper]);
+    }
+    var_dump($password);
+}
+implode(" ", $password);
+var_dump($password);
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,14 +41,18 @@
 
 <section>
     <div class="container justify-content-center align-items-center">
+
         <div class="text-center mb-4">
             <h1 class="text-capitalize fw-bold">strong password generator</h1>
             <h2 class="fw-bold">Genera una password sicura</h2>
         </div>
+
         <div class="card w-100 p-4">
             <form action="./index.php" method="get" >
                 <div class="row">
+
                     <div class="col-8">
+
                         <p>Lunghezza password:</p> <br>
                         <p class="mb-5">Constenti ripetizioni di uno o più caratteri:</p>
 
@@ -47,11 +79,21 @@
                         <label for="simboli">Simboli</label> <br>
                         
                     </div>
-
-                    
                 </div>
             </form>
         </div>
+
+        <?php if (!empty($password)) :?>
+            <div class="alert alert-success mt-4 w-100" role="alert">
+                <p>
+                    Password generata correttamente, la tua password è: 
+                    <?php echo implode("", $password) ; ?>
+                </p>
+            </div>
+        <?php endif;?>
+
+
+
     </div>
 </section>
 
