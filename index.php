@@ -11,18 +11,35 @@ var_dump($alphabetsLower);
 var_dump($alphabetsUpper);
 
 for ($i=0; $i < $lenghtPassword; $i++) { 
+
     $randomChoice = rand(0, 1);
-    if ($randomChoice === 0) {
-        $randomLower = rand(0, count($alphabetsLower) - 1);
-        array_push($password, $alphabetsLower[$randomLower]);
-    }elseif ($randomChoice === 1) {
-        $randomUpper = rand(0, count($alphabetsUpper) - 1);
-        array_push($password, $alphabetsUpper[$randomUpper]);
+    if ($_GET['yes-no'] === 'true') {
+        if ($randomChoice === 0) {
+            $randomLower = rand(0, count($alphabetsLower) - 1);
+            array_push($password, $alphabetsLower[$randomLower]);
+        }elseif ($randomChoice === 1) {
+            $randomUpper = rand(0, count($alphabetsUpper) - 1);
+            array_push($password, $alphabetsUpper[$randomUpper]);
+        }
+    }else {
+        if ($randomChoice === 0) {
+            $randomLower = rand(0, count($alphabetsLower) - 1);
+            if (!in_array($alphabetsLower[$randomLower], $password)) {
+                array_push($password, $alphabetsLower[$randomLower]);
+            }else {
+                $i--;
+            }
+        }elseif ($randomChoice === 1) {
+            $randomUpper = rand(0, count($alphabetsUpper) - 1);
+            if (!in_array($alphabetsUpper[$randomUpper], $password)) {
+                array_push($password, $alphabetsUpper[$randomUpper]);
+            }else {
+                $i--;
+            }
+        }
     }
-    var_dump($password);
+
 }
-implode(" ", $password);
-var_dump($password);
 ?>
 
 
@@ -85,7 +102,7 @@ var_dump($password);
 
         <?php if (!empty($password)) :?>
             <div class="alert alert-success mt-4 w-100" role="alert">
-                <p>
+                <p class="m-0">
                     Password generata correttamente, la tua password è: 
                     <?php echo implode("", $password) ; ?>
                 </p>
